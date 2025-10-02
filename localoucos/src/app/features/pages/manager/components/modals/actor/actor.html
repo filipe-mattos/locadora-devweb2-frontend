@@ -1,0 +1,41 @@
+<div class="actor-modal-header">
+    <h2 class="actor-title" mat-dialog-title>Gerenciar Ator</h2>
+</div>
+<!-- Adicionar aqui o formulario para salvar o ator -->
+<mat-dialog-content>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Id Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Nome </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions" >
+    <th mat-header-cell *matHeaderCellDef>Ações</th>
+    <td mat-cell  *matCellDef="let teste">
+        <button><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit" (click)="edit()"></mat-icon></button>
+        <button><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="delete" (click)="delete()"></mat-icon></button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+</mat-dialog-actions>
