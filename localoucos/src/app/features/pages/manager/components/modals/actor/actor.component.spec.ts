@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Actor } from './actor';
+import { Actor } from './actor.component';
 
 describe('Actor', () => {
   let component: Actor;

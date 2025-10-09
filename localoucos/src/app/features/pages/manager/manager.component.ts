@@ -9,14 +9,14 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { Actor } from './components/modals/actor/actor';
-import { Director } from './components/modals/director/director';
-import { Class } from './components/modals/class/class';
+import { Actor } from './components/modals/actor/actor.component';
+import { Director } from './components/modals/director/director.component';
+import { Class } from './components/modals/class/class.component';
 @Component({
   selector: 'app-manager',
   imports: [MatButtonModule],
-  templateUrl: './manager.html',
-  styleUrl: './manager.scss'
+  templateUrl: './manager.component.html',
+  styleUrl: './manager.component.scss'
 })
 export class Manager {
 

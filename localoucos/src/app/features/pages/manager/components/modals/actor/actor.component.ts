@@ -13,15 +13,15 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {id: 1, name: 'Filipe'},
   {id: 2, name: 'Filipinho'},
   {id: 3, name: 'Filipao'},
-  
+
 ];
 
 
 @Component({
   selector: 'app-actor',
   imports: [MatDialogContent, MatDialogActions, MatTableModule, MatIconModule, MatButton],
-  templateUrl: './actor.html',
-  styleUrl: './actor.scss'
+  templateUrl: './actor.component.html',
+  styleUrl: './actor.component.scss'
 })
 
 export class Actor {
