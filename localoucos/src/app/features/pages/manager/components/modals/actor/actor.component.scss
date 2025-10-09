@@ -7,3 +7,16 @@
 .actor-modal-header{
     background-color: var(--mat-sys-primary);
 }
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap : 20px;
+
+  .form-label{
+    width: 80%;
+  }
+
+}
+

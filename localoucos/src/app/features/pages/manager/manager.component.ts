@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -16,17 +16,16 @@ import { Class } from './components/modals/class/class.component';
   selector: 'app-manager',
   imports: [MatButtonModule],
   templateUrl: './manager.component.html',
-  styleUrl: './manager.component.scss'
+  styleUrl: './manager.component.scss',
 })
 export class Manager {
-
   readonly dialog = inject(MatDialog);
 
   openActorModal(): void {
     const dialogRef = this.dialog.open(Actor, {
       data: {},
       width: '760px',
-      minWidth: '760px'
+      minWidth: '760px',
     });
 
     // dialogRef.afterClosed().subscribe(result => {
@@ -62,5 +61,4 @@ export class Manager {
     //   }
     // });
   }
-
 }
