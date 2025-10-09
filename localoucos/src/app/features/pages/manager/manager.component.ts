@@ -23,9 +23,13 @@ export class Manager {
 
   openActorModal(): void {
     const dialogRef = this.dialog.open(Actor, {
-      data: {},
+      data: {
+        ref: this.dialog,
+      },
       width: '760px',
       minWidth: '760px',
+      //closePredicate: () => true,
+      //disableClose: true,
     });
 
     // dialogRef.afterClosed().subscribe(result => {
@@ -39,6 +43,8 @@ export class Manager {
   openDirectorModal(): void {
     const dialogRef = this.dialog.open(Director, {
       data: {},
+      width: '760px',
+      minWidth: '760px',
     });
 
     // dialogRef.afterClosed().subscribe(result => {
@@ -52,6 +58,8 @@ export class Manager {
   openClassModal(): void {
     const dialogRef = this.dialog.open(Class, {
       data: {},
+      width: '760px',
+      minWidth: '760px',
     });
 
     // dialogRef.afterClosed().subscribe(result => {
