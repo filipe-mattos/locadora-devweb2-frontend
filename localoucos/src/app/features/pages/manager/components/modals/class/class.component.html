@@ -1,5 +1,5 @@
 <div class="actor-modal-header">
-  <h2 class="actor-title" mat-dialog-title>Gerenciar Classe</h2>
+  <h2 class="actor-title" mat-dialog-title>Gerenciar Ator</h2>
 </div>
 
 <!-- Adicionar aqui o formulario para salvar o ator -->
@@ -8,7 +8,7 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field class="form-label">
         <mat-label>Nome</mat-label>
-        <input matInput placeholder="Nome do Diretor" [formControlName]="'name'" required />
+        <input matInput placeholder="Nome do Ator" [formControlName]="'name'" required />
         @if (form.controls.name.hasError('required')) {
           <mat-error>Campo obrigatório</mat-error>
         }
@@ -36,16 +36,28 @@
       <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
 
+    <!-- Name Column -->
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef>Valor</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="devolution">
+      <th mat-header-cell *matHeaderCellDef>Devolução</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Ações</th>
-      <td mat-cell *matCellDef="let teste">
+      <td mat-cell *matCellDef="let data">
         <button>
           <mat-icon
             aria-hidden="false"
             aria-label="Example home icon"
             fontIcon="edit"
-            (click)="edit()"
+            (click)="openActorModal(data.id)"
           ></mat-icon>
         </button>
         <button>
@@ -53,7 +65,7 @@
             aria-hidden="false"
             aria-label="Example home icon"
             fontIcon="delete"
-            (click)="delete()"
+            (click)="deleteActor(data.id)"
           ></mat-icon>
         </button>
       </td>

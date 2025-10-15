@@ -1,30 +1,30 @@
 import { inject, Inject, Injectable } from '@angular/core';
-import { DirectorPayload } from '../models/director';
+import { DirectorModel, DirectorPayload } from '../models/director';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ActorService {
+export class DirectorService {
   private httpClient = inject(HttpClient);
 
   findActorById(id: string) {
-    return this.httpClient.get('http://localhost:3000/actor/' + id);
+    return this.httpClient.get<DirectorModel>('http://localhost:8000/directors/' + id);
   }
 
   listActors() {
-    return this.httpClient.get('http://localhost:3000/actors');
+    return this.httpClient.get<DirectorModel[]>('http://localhost:8000/directors/');
   }
 
   deleteActor(id: string) {
-    return this.httpClient.delete('http://localhost:3000/actor/' + id);
+    return this.httpClient.delete('http://localhost:8000/directors/' + id);
   }
 
   updateActor(id: string, payload: DirectorPayload) {
-    return this.httpClient.put('http://localhost:3000/actor/' + id, payload);
+    return this.httpClient.put<DirectorModel>('http://localhost:8000/directors/' + id, payload);
   }
 
   saveActor(payload: DirectorPayload) {
-    return this.httpClient.post('http://localhost:3000/actor', payload);
+    return this.httpClient.post<DirectorModel>('http://localhost:8000/directors/', payload);
   }
 }

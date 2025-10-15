@@ -1,5 +1,5 @@
-import { Component, inject, Injectable } from '@angular/core';
-import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { Component, Inject, inject, Injectable } from '@angular/core';
+import { MatDialogContent, MatDialogActions, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
@@ -13,19 +13,9 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DirectorModel, DirectorPayload } from './models/director';
-import { ActorService } from './service/director.service';
+import { DirectorService } from './service/director.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-export interface PeriodicElement {
-  name: string;
-  id: number;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { id: 1, name: 'Filipe' },
-  { id: 2, name: 'Filipinho' },
-  { id: 3, name: 'Filipao' },
-];
+import { EditComponent } from './modals/edit/edit.component';
 
 @Component({
   selector: 'app-actor',
@@ -44,27 +34,33 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrl: './director.component.scss',
 })
 export class Director {
-  private actorService = inject(ActorService);
+  private directorService = inject(DirectorService);
   private snackBar = inject(MatSnackBar);
+  readonly dialog = inject(MatDialog);
+  readonly dialogRef = inject(MatDialogRef<Director>);
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      ref: MatDialog;
+    },
+  ) {}
+
+  displayedColumns: string[] = ['id', 'name', 'actions'];
+  dataSource: DirectorModel[] = [];
 
   form = new FormGroup({
     name: new FormControl<string>('', { validators: [Validators.required] }),
   });
 
+  ngOnInit(): void {
+    this.listActors();
+  }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action);
   }
 
-  delete() {
-    console.log('delete');
-  }
-
-  edit() {
-    console.log('edit');
-  }
-
-  displayedColumns: string[] = ['id', 'name', 'actions'];
-  dataSource = ELEMENT_DATA;
   //adicionar chamada de api para o crud de ator
 
   onSubmit() {
@@ -76,7 +72,7 @@ export class Director {
       name: this.form.controls.name.value as string,
     };
 
-    this.actorService.saveActor(payload).subscribe({
+    this.directorService.saveActor(payload).subscribe({
       next: () => {
         this.snackBar.open('Ator cadastrado com sucesso', 'Fechar', {
           horizontalPosition: 'center',
@@ -89,20 +85,50 @@ export class Director {
   }
 
   listActors() {
-    //Essa funcao vai precisar popular o objeto da tabela
-    this.actorService.listActors().subscribe({});
+    //Essa funcao vai precisar popular o objeto da tabela\
+    console.log('Listando atores');
+    this.directorService.listActors().subscribe({
+      next: (directors) => {
+        this.dataSource = directors;
+      },
+      error: () => {
+        this.snackBar.open('Adicione um Ator', 'Fechar', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      },
+    });
   }
 
   deleteActor(id: string) {
-    this.actorService.deleteActor(id).subscribe({});
+    this.directorService.deleteActor(id).subscribe({
+      next: () => {
+        this.snackBar.open('Ator deletado com sucesso', 'Fechar', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        this.listActors();
+      },
+    });
   }
 
+  openActorModal(id: string): void {
+    console.log(id);
+    const dialogRef = this.dialog.open(EditComponent, {
+      data: {
+        ref: this.dialog,
+        id,
+      },
+      width: '200px',
+    });
+  }
   updateActor(id: string, payload: DirectorPayload) {
     //Pensar em como fazer a logica para dar update no actor direto da tabela
-    this.actorService.updateActor(id, payload).subscribe({});
+    this.directorService.updateActor(id, payload).subscribe({});
   }
 
   onCancel() {
-    console.log('onCancel');
+    this.form.reset();
+    this.dialogRef.close();
   }
 }

@@ -11,7 +11,7 @@ import {
 } from '@angular/material/dialog';
 import { Actor } from './components/modals/actor/actor.component';
 import { Director } from './components/modals/director/director.component';
-import { Class } from './components/modals/class/class.component';
+import { ClassComponent } from './components/modals/class/class.component';
 @Component({
   selector: 'app-manager',
   imports: [MatButtonModule],
@@ -56,7 +56,7 @@ export class Manager {
   }
 
   openClassModal(): void {
-    const dialogRef = this.dialog.open(Class, {
+    const dialogRef = this.dialog.open(ClassComponent, {
       data: {},
       width: '760px',
       minWidth: '760px',
