@@ -136,6 +136,10 @@ export class Actor implements OnInit {
       },
       width: '200px',
     });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.listActors();
+    });
   }
   updateActor(id: string, payload: ActorPayload) {
     //Pensar em como fazer a logica para dar update no actor direto da tabela

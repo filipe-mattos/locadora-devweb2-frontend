@@ -1,5 +1,11 @@
 import { Component, Inject, inject, Injectable } from '@angular/core';
-import { MatDialogContent, MatDialogActions, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogContent,
+  MatDialogActions,
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
@@ -73,8 +79,10 @@ export class ClassComponent {
     const payload: ClassPayload = {
       name: this.form.controls.name.value as string,
       value: this.form.controls.value.value as number,
-      devolution: this.form.controls.devolution.value as number
+      return_date: this.form.controls.devolution.value as number,
     };
+
+    console.log(payload);
 
     this.classService.saveActor(payload).subscribe({
       next: () => {
@@ -105,6 +113,7 @@ export class ClassComponent {
   }
 
   deleteActor(id: string) {
+    console.log(id);
     this.classService.deleteActor(id).subscribe({
       next: () => {
         this.snackBar.open('Ator deletado com sucesso', 'Fechar', {
