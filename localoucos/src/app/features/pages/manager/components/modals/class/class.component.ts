@@ -19,9 +19,9 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ClassModel, ClassPayload } from './models/class';
-import { ClassService } from './service/director.service';
+import { ClassService } from './service/class.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { EditComponent } from '../actor/modals/edit/edit.component';
+import { EditComponent } from '../class/modals/edit/edit.component';
 
 @Component({
   selector: 'app-actor',
@@ -133,6 +133,10 @@ export class ClassComponent {
         id,
       },
       width: '200px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.listActors();
     });
   }
   updateActor(id: string, payload: ClassPayload) {

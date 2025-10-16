@@ -1,5 +1,11 @@
 import { Component, Inject, inject, Injectable } from '@angular/core';
-import { MatDialogContent, MatDialogActions, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogContent,
+  MatDialogActions,
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
@@ -120,6 +126,10 @@ export class Director {
         id,
       },
       width: '200px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.listActors();
     });
   }
   updateActor(id: string, payload: DirectorPayload) {
