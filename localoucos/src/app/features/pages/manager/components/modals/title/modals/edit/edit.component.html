@@ -1,0 +1,21 @@
+<div class="actor-modal-header">
+  <h2 class="actor-title" mat-dialog-title>Gerenciar Ator</h2>
+</div>
+
+<!-- Adicionar aqui o formulario para salvar o ator -->
+<mat-dialog-content>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-label">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="Nome do Ator" [formControlName]="'name'" required />
+        @if (form.controls.name.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+      <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">
+        Cadastrar
+      </button>
+    </form>
+  </div>
+</mat-dialog-content>

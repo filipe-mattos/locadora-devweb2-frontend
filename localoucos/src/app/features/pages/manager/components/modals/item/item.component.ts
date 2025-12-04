@@ -1,0 +1,156 @@
+import { ChangeDetectionStrategy, Component, Inject, inject, Injectable } from '@angular/core';
+import {
+  MatDialogContent,
+  MatDialogActions,
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatButton } from '@angular/material/button';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ItemModel, ItemPayload } from './models/item';
+import { ItemService } from './service/item.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { EditComponent } from './modals/edit/edit.component';
+import { provideNativeDateAdapter } from '@angular/material/core';
+
+@Component({
+  selector: 'app-actor',
+  imports: [
+    MatDialogContent,
+    MatDialogActions,
+    MatTableModule,
+    MatIconModule,
+    MatButton,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [provideNativeDateAdapter()],
+  templateUrl: './item.component.html',
+  styleUrl: './item.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class Item {
+  private itemService = inject(ItemService);
+  private snackBar = inject(MatSnackBar);
+  readonly dialog = inject(MatDialog);
+  readonly dialogRef = inject(MatDialogRef<Item>);
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      ref: MatDialog;
+    },
+  ) {}
+
+  displayedColumns: string[] = ['id', 'numSerie', 'aquisicaoDate', 'itemType', 'actions'];
+  dataSource: ItemModel[] = [];
+
+  form = new FormGroup({
+    numSerie: new FormControl<number>(0, { validators: [Validators.required] }),
+    aquisicaoDate: new FormControl<Date>(new Date(), { validators: [Validators.required] }),
+    itemType: new FormControl<number>(0, { validators: [Validators.required] }),
+  });
+
+  ngOnInit(): void {
+    this.listItems();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action);
+  }
+
+  //adicionar chamada de api para o crud de ator
+
+
+  // Testar melhor nao esta salvando
+
+  onSubmit() {
+    if (this.form.invalid) {
+      return;
+    }
+
+    const payload: ItemPayload = {
+      numSerie: this.form.controls.numSerie.value as number,
+      aquisicaoDate: this.form.controls.aquisicaoDate.value as Date,
+      itemType: this.form.controls.itemType.value as number
+    };
+    console.log(payload)
+    this.itemService.saveItem(payload).subscribe({
+
+      next: () => {
+        console.log("ASDASDADASD")
+        this.snackBar.open('Ator cadastrado com sucesso', 'Fechar', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        this.form.reset();
+        this.listItems();
+      },
+    });
+  }
+
+  listItems() {
+    this.itemService.listItems().subscribe({
+      next: (items) => {
+        this.dataSource = items;
+      },
+      error: () => {
+        this.snackBar.open('Adicione um Item', 'Fechar', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      },
+    });
+  }
+
+  deleteItem(id: string) {
+    this.itemService.deleteItem(id).subscribe({
+      next: () => {
+        this.snackBar.open('Item deletado com sucesso', 'Fechar', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        this.listItems();
+      },
+    });
+  }
+
+  openItemModal(id: string): void {
+    console.log(id);
+    const dialogRef = this.dialog.open(EditComponent, {
+      data: {
+        ref: this.dialog,
+        id,
+      },
+      width: '200px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.listItems();
+    });
+  }
+  updateItem(id: string, payload: ItemPayload) {
+    //Pensar em como fazer a logica para dar update no actor direto da tabela
+    this.itemService.updateItem(id, payload).subscribe({});
+  }
+
+  onCancel() {
+    this.form.reset();
+    this.dialogRef.close();
+  }
+}

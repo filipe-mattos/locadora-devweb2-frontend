@@ -1,0 +1,40 @@
+<div class="actor-modal-header">
+  <h2 class="actor-title" mat-dialog-title>Gerenciar Ator</h2>
+</div>
+
+<!-- Adicionar aqui o formulario para salvar o ator -->
+<mat-dialog-content>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-label">
+        <mat-label>Numero Serie</mat-label>
+        <input matInput placeholder="Num. Serie" [formControlName]="'numSerie'" required />
+        @if (form.controls.numSerie.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-label">
+        <mat-label>Data Aquisicao</mat-label>
+        <input matInput [matDatepicker]="picker" [formControlName]="'aquisicaoDate'" required />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (form.controls.aquisicaoDate.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-label">
+        <mat-label>Tipo do Item</mat-label>
+        <input matInput placeholder="Tipo Item" [formControlName]="'itemType'" required />
+        @if (form.controls.itemType.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+      <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">
+        Cadastrar
+      </button>
+    </form>
+  </div>
+</mat-dialog-content>

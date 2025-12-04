@@ -1,0 +1,144 @@
+<div class="actor-modal-header">
+  <h2 class="actor-title" mat-dialog-title>Gerenciar Diretor</h2>
+</div>
+
+<!-- Adicionar aqui o formulario para salvar o ator -->
+<mat-dialog-content>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-label">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="Nome do Ator" [formControlName]="'name'" required />
+        @if (form.controls.name.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-label">
+        <mat-label>Atores</mat-label>
+        <mat-select [formControlName]="'actors'" required>
+          @for(actor of actors; track actor){
+            <mat-option value="{{actor.id}}">{{actor.name}}</mat-option>
+          }
+        </mat-select>
+        @if (form.controls.name.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-label">
+        <mat-label>Diretores</mat-label>
+        <mat-select [formControlName]="'directors'" required>
+          @for(director of directors; track director){
+            <mat-option value="{{director.id}}">{{director.name}}</mat-option>
+          }
+        </mat-select>
+        @if (form.controls.name.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-label">
+        <mat-label>Ano</mat-label>
+        <input matInput placeholder="Nome do Ator" [formControlName]="'year'" required />
+        @if (form.controls.name.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-label">
+        <mat-label>Sinopse</mat-label>
+        <textarea matInput placeholder="Sinopse" [formControlName]="'sinopsy'" required ></textarea>
+        @if (form.controls.name.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-label">
+        <mat-label>Categiria</mat-label>
+        <input matInput placeholder="Catregoria" [formControlName]="'category'" required />
+        @if (form.controls.name.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-label">
+        <mat-label>Classe</mat-label>
+        <mat-select [formControlName]="'class'" required>
+          @for(class of classes; track class){
+            <mat-option value="{{class.id}}">{{class.name}}</mat-option>
+          }
+        </mat-select>
+        @if (form.controls.name.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+      <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">
+        Cadastrar
+      </button>
+    </form>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef>Ano</th>
+      <td mat-cell *matCellDef="let element">{{ element.year }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="synopsis">
+      <th mat-header-cell *matHeaderCellDef>Sinopse</th>
+      <td mat-cell *matCellDef="let element">{{ element.synopsis }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Categoria</th>
+      <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Ações</th>
+      <td mat-cell *matCellDef="let data">
+        <button>
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="edit"
+            (click)="openActorModal(data.id)"
+          ></mat-icon>
+        </button>
+        <button>
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="delete"
+            (click)="deleteActor(data.id)"
+          ></mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+</mat-dialog-actions>
