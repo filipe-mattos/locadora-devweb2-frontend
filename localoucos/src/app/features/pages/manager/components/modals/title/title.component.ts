@@ -76,9 +76,9 @@ export class Title {
     year: new FormControl<number>(0, { validators: [Validators.required] }),
     category: new FormControl<string>('', { validators: [Validators.required] }),
     synopsis: new FormControl<string>('', { validators: [Validators.required] }),
-    actors: new FormControl<ActorModel | null>(null, { validators: [Validators.required] }),
-    directors: new FormControl<DirectorModel | null>(null, { validators: [Validators.required] }),
-    class: new FormControl<ClassModel | null>(null, { validators: [Validators.required] }),
+    actorsId: new FormControl<string>('', { validators: [Validators.required] }),
+    directorsId: new FormControl<string>('', { validators: [Validators.required] }),
+    classId: new FormControl<string>('', { validators: [Validators.required] }),
   });
 
   ngOnInit(): void {
@@ -123,9 +123,9 @@ export class Title {
       year: this.form.controls.year.value as number,
       synopsis: this.form.controls.synopsis.value as string,
       category: this.form.controls.category.value as string,
-      class: this.form.controls.class.value as ClassModel,
-      actors: this.form.controls.actors.value as unknown as ActorModel[],
-      directors: this.form.controls.directors.value as unknown as DirectorModel[],
+      movie_class_id: this.form.controls.classId.value as string,
+      actor_ids: [this.form.controls.actorsId.value as string],
+      director_id: this.form.controls.directorsId.value as string,
     };
 
     this.titleService.saveActor(payload).subscribe({

@@ -9,9 +9,9 @@ export interface TitleModel {
   year: number;
   synopsis: string;
   category: string;
-  class: ClassModel;
-  actors: ActorModel[];
-  directors: DirectorModel[];
+  movie_class_id: string;
+  actor_ids: string[];
+  director_id: string;
 }
 
 export type TitlePayload = Omit<TitleModel, 'id'>;

@@ -18,6 +18,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ItemService } from '../../service/item.service';
 import { ItemPayload } from '../../models/item';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from "@angular/material/select";
+import { TitleModel } from '../../../title/models/title';
+import { TitleService } from '../../../title/service/title.service';
 
 @Component({
   selector: 'app-edit',
@@ -29,7 +32,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-  ],
+    MatSelectModule
+],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss',
 })
@@ -43,21 +47,44 @@ export class EditComponent {
   ) {}
   readonly dialogRef = inject(MatDialogRef<EditComponent>);
   private itemService = inject(ItemService);
+  private titlesService = inject(TitleService);
   actorId = input<string>('');
+  titles: TitleModel[] = [];
 
   form = new FormGroup({
-    numSerie: new FormControl<number>(0, { validators: [Validators.required] }),
-    aquisicaoDate: new FormControl<Date>(new Date(), { validators: [Validators.required] }),
-    itemType: new FormControl<number>(0, { validators: [Validators.required] }),
+    serial_number: new FormControl<string>('', { validators: [Validators.required] }),
+    acquisition_date: new FormControl<Date>(new Date(), { validators: [Validators.required] }),
+    type: new FormControl<string>('', { validators: [Validators.required] }),
+    title_id: new FormControl<string>('', {validators: [Validators.required]}),
   });
 
 
+  loadTitle(){
+    this.titlesService.listActors().subscribe({
+      next: (titles) => {
+        this.titles = titles
+      },
+    })
+  }
+
+  reverseStringUsingLoop(str: string): string {
+    let reversed = '';
+    for (let i = str.length - 1; i >= 0; i--) {
+        reversed += str[i];
+    }
+    return reversed;
+  }
+
   onSubmit() {
+    
+    const date = new Date(this.form.controls.acquisition_date.value!).toLocaleDateString();
+    console.log(date)
     console.log(this.data);
     const payload: ItemPayload = {
-      numSerie: this.form.controls.numSerie.value as number,
-      aquisicaoDate: this.form.controls.aquisicaoDate.value as Date,
-      itemType: this.form.controls.itemType as unknown as number
+      serial_number: this.form.controls.serial_number.value!,
+      acquisition_date: this.reverseStringUsingLoop(date),
+      type: this.form.controls.type.value!,
+      title_id: this.form.controls.title_id.value!
     };
     this.itemService.updateItem(this.data.id, payload).subscribe({
       next: () => {

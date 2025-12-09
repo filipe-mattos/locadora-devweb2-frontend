@@ -8,27 +8,39 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field class="form-label">
         <mat-label>Numero Serie</mat-label>
-        <input matInput placeholder="Num. Serie" [formControlName]="'numSerie'" required />
-        @if (form.controls.numSerie.hasError('required')) {
+        <input matInput placeholder="Num. Serie" [formControlName]="'serial_number'" required />
+        @if (form.controls.serial_number) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-label">
+        <mat-label>Titulo</mat-label>
+        <mat-select [formControlName]="'title_id'" required>
+          @for(title of titles; track title){
+            <mat-option value="{{title.id}}">{{title.name}}</mat-option>
+          }
+        </mat-select>
+        @if (form.controls.title_id) {
           <mat-error>Campo obrigatório</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field class="form-label">
         <mat-label>Data Aquisicao</mat-label>
-        <input matInput [matDatepicker]="picker" [formControlName]="'aquisicaoDate'" required />
+        <input matInput [matDatepicker]="picker" [formControlName]="'acquisition_date'" required />
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        @if (form.controls.aquisicaoDate.hasError('required')) {
+        @if (form.controls.acquisition_date.hasError('required')) {
           <mat-error>Campo obrigatório</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field class="form-label">
         <mat-label>Tipo do Item</mat-label>
-        <input matInput placeholder="Tipo Item" [formControlName]="'itemType'" required />
-        @if (form.controls.itemType.hasError('required')) {
+        <input matInput placeholder="Tipo Item" [formControlName]="'type'" required />
+        @if (form.controls.type.hasError('required')) {
           <mat-error>Campo obrigatório</mat-error>
         }
       </mat-form-field>

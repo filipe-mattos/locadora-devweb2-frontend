@@ -52,7 +52,7 @@ export class ClassComponent {
     },
   ) {}
 
-  displayedColumns: string[] = ['id', 'name', 'value', 'devolution', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'value', 'return_date', 'actions'];
   dataSource: ClassModel[] = [];
 
   form = new FormGroup({
@@ -131,6 +131,7 @@ export class ClassComponent {
       data: {
         ref: this.dialog,
         id,
+       // response: this.dataSource
       },
       width: '200px',
     });

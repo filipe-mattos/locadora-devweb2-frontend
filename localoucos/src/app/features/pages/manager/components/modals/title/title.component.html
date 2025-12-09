@@ -16,24 +16,24 @@
 
       <mat-form-field class="form-label">
         <mat-label>Atores</mat-label>
-        <mat-select [formControlName]="'actors'" required>
+        <mat-select [formControlName]="'actorsId'" required>
           @for(actor of actors; track actor){
             <mat-option value="{{actor.id}}">{{actor.name}}</mat-option>
           }
         </mat-select>
-        @if (form.controls.name.hasError('required')) {
+        @if (form.controls.actorsId.hasError('required')) {
           <mat-error>Campo obrigatório</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field class="form-label">
         <mat-label>Diretores</mat-label>
-        <mat-select [formControlName]="'directors'" required>
+        <mat-select [formControlName]="'directorsId'" required>
           @for(director of directors; track director){
             <mat-option value="{{director.id}}">{{director.name}}</mat-option>
           }
         </mat-select>
-        @if (form.controls.name.hasError('required')) {
+        @if (form.controls.directorsId.hasError('required')) {
           <mat-error>Campo obrigatório</mat-error>
         }
       </mat-form-field>
@@ -41,15 +41,15 @@
       <mat-form-field class="form-label">
         <mat-label>Ano</mat-label>
         <input matInput placeholder="Nome do Ator" [formControlName]="'year'" required />
-        @if (form.controls.name.hasError('required')) {
+        @if (form.controls.year.hasError('required')) {
           <mat-error>Campo obrigatório</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field class="form-label">
         <mat-label>Sinopse</mat-label>
-        <textarea matInput placeholder="Sinopse" [formControlName]="'sinopsy'" required ></textarea>
-        @if (form.controls.name.hasError('required')) {
+        <textarea matInput placeholder="Sinopse" [formControlName]="'synopsis'" required ></textarea>
+        @if (form.controls.synopsis.hasError('required')) {
           <mat-error>Campo obrigatório</mat-error>
         }
       </mat-form-field>
@@ -57,14 +57,14 @@
       <mat-form-field class="form-label">
         <mat-label>Categiria</mat-label>
         <input matInput placeholder="Catregoria" [formControlName]="'category'" required />
-        @if (form.controls.name.hasError('required')) {
+        @if (form.controls.category.hasError('required')) {
           <mat-error>Campo obrigatório</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field class="form-label">
         <mat-label>Classe</mat-label>
-        <mat-select [formControlName]="'class'" required>
+        <mat-select [formControlName]="'classId'" required>
           @for(class of classes; track class){
             <mat-option value="{{class.id}}">{{class.name}}</mat-option>
           }

@@ -24,6 +24,9 @@ import { ItemService } from './service/item.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditComponent } from './modals/edit/edit.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatSelectModule } from "@angular/material/select";
+import { TitleModel } from '../title/models/title';
+import { TitleService } from '../title/service/title.service';
 
 @Component({
   selector: 'app-actor',
@@ -38,7 +41,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatDatepickerModule,
     FormsModule,
     ReactiveFormsModule,
-  ],
+    MatSelectModule
+],
   providers: [provideNativeDateAdapter()],
   templateUrl: './item.component.html',
   styleUrl: './item.component.scss',
@@ -46,10 +50,11 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 })
 export class Item {
   private itemService = inject(ItemService);
+  private titlesService = inject(TitleService);
   private snackBar = inject(MatSnackBar);
   readonly dialog = inject(MatDialog);
   readonly dialogRef = inject(MatDialogRef<Item>);
-
+  titles: TitleModel[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -60,14 +65,26 @@ export class Item {
   displayedColumns: string[] = ['id', 'numSerie', 'aquisicaoDate', 'itemType', 'actions'];
   dataSource: ItemModel[] = [];
 
+  
+
   form = new FormGroup({
-    numSerie: new FormControl<number>(0, { validators: [Validators.required] }),
-    aquisicaoDate: new FormControl<Date>(new Date(), { validators: [Validators.required] }),
-    itemType: new FormControl<number>(0, { validators: [Validators.required] }),
+    serial_number: new FormControl<string>('', { validators: [Validators.required] }),
+    acquisition_date: new FormControl<string | null>(null, { validators: [Validators.required] }),
+    type: new FormControl<string>('', { validators: [Validators.required] }),
+    title_id: new FormControl<string>('', {validators: [Validators.required]}),
   });
 
   ngOnInit(): void {
+    this.loadTitle();
     this.listItems();
+  }
+
+  loadTitle(){
+    this.titlesService.listActors().subscribe({
+      next: (titles) => {
+        this.titles = titles
+      },
+    })
   }
 
   openSnackBar(message: string, action: string) {
@@ -79,22 +96,45 @@ export class Item {
 
   // Testar melhor nao esta salvando
 
+  reverseStringUsingLoop(str: string): string {
+    let splited = str.split('/')
+    console.log(splited)
+    let reversed = '';
+    let formated = splited[1]
+    let formated2 = splited[0]
+    splited[0] = formated;
+    splited[1] = formated2
+    for (let i = splited.length - 1; i >= 0; i--) {
+        if(i<1){
+          reversed += splited[i];
+        }else{
+          reversed += splited[i]+'-';
+        }
+    }
+    console.log(reversed)
+    return reversed;
+  }
+
   onSubmit() {
     if (this.form.invalid) {
       return;
     }
 
+    const date = new Date(this.form.controls.acquisition_date.value!).toLocaleDateString();
+    console.log(date)
+    //let formatedDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`
+    //console.log(formatedDate)
     const payload: ItemPayload = {
-      numSerie: this.form.controls.numSerie.value as number,
-      aquisicaoDate: this.form.controls.aquisicaoDate.value as Date,
-      itemType: this.form.controls.itemType.value as number
+      serial_number: this.form.controls.serial_number.value!,
+      acquisition_date: this.reverseStringUsingLoop(date),
+      type: this.form.controls.type.value!,
+      title_id: this.form.controls.title_id.value!
     };
     console.log(payload)
     this.itemService.saveItem(payload).subscribe({
 
       next: () => {
-        console.log("ASDASDADASD")
-        this.snackBar.open('Ator cadastrado com sucesso', 'Fechar', {
+        this.snackBar.open('Item cadastrado com sucesso', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });

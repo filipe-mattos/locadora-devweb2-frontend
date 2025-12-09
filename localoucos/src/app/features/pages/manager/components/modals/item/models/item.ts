@@ -1,8 +1,9 @@
 export interface ItemModel {
   id: string | null;
-  numSerie: number;
-  aquisicaoDate: Date;
-  itemType: number;
+  serial_number: string;
+  acquisition_date: string;
+  type: string;
+  title_id: string;
 }
 
 export type ItemPayload = Omit<ItemModel, 'id'>;
