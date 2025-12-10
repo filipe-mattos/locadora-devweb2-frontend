@@ -26,8 +26,8 @@ import { EditComponent } from '../class/modals/edit/edit.component';
 @Component({
   selector: 'app-actor',
   imports: [
-    MatDialogContent,
-    MatDialogActions,
+    //MatDialogContent,
+   // MatDialogActions,
     MatTableModule,
     MatIconModule,
     MatButton,
@@ -36,20 +36,25 @@ import { EditComponent } from '../class/modals/edit/edit.component';
     FormsModule,
     ReactiveFormsModule,
   ],
+  providers: [
+  { provide: MAT_DIALOG_DATA, useValue: {} },
+  {provide: MatDialogRef, useValue: {ClassComponent}}
+],
   templateUrl: './class.component.html',
   styleUrl: './class.component.scss',
 })
 export class ClassComponent {
+  private matMdcDialogData = inject(MAT_DIALOG_DATA);
   private classService = inject(ClassService);
   private snackBar = inject(MatSnackBar);
   readonly dialog = inject(MatDialog);
   readonly dialogRef = inject(MatDialogRef<ClassComponent>);
 
   constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      ref: MatDialog;
-    },
+    // @Inject(MAT_DIALOG_DATA)
+    // public data: {
+    //   ref: MatDialog;
+    // },
   ) {}
 
   displayedColumns: string[] = ['id', 'name', 'value', 'return_date', 'actions'];

@@ -46,6 +46,10 @@ import { DirectorService } from '../director/service/director.service';
     FormsModule,
     ReactiveFormsModule,
   ],
+  providers: [
+  { provide: MAT_DIALOG_DATA, useValue: {} },
+  {provide: MatDialogRef, useValue: {Title}}
+],
   templateUrl: './title.component.html',
   styleUrl: './title.component.scss',
 })

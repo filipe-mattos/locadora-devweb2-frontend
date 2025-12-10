@@ -1,3 +1,18 @@
 .header {
   background: var(--mat-sys-primary);
 }
+
+.sidenav-container {
+  /* Ocupa a altura total da viewport */
+  height: 100vh;
+}
+
+.content {
+  /* Adiciona algum padding para que o conteúdo não fique encostado no header */
+  padding: 16px;
+}
+
+mat-sidenav {
+  /* Define a largura do menu lateral */
+  width: 250px;
+}

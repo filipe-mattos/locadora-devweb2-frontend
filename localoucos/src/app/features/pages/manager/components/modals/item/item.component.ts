@@ -43,7 +43,10 @@ import { TitleService } from '../title/service/title.service';
     ReactiveFormsModule,
     MatSelectModule
 ],
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(),
+  { provide: MAT_DIALOG_DATA, useValue: {} },
+  {provide: MatDialogRef, useValue: {Item}}
+],
   templateUrl: './item.component.html',
   styleUrl: './item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -62,10 +65,10 @@ export class Item {
     },
   ) {}
 
-  displayedColumns: string[] = ['id', 'numSerie', 'aquisicaoDate', 'itemType', 'actions'];
+  displayedColumns: string[] = ['id', 'serial_number', 'acquisition_date', 'type', 'actions'];
   dataSource: ItemModel[] = [];
 
-  
+
 
   form = new FormGroup({
     serial_number: new FormControl<string>('', { validators: [Validators.required] }),
@@ -100,10 +103,10 @@ export class Item {
     let splited = str.split('/')
     console.log(splited)
     let reversed = '';
-    let formated = splited[1]
-    let formated2 = splited[0]
-    splited[0] = formated;
-    splited[1] = formated2
+    //let formated = splited[1]
+    //let formated2 = splited[0]
+    //splited[0] = formated;
+    //splited[1] = formated2
     for (let i = splited.length - 1; i >= 0; i--) {
         if(i<1){
           reversed += splited[i];

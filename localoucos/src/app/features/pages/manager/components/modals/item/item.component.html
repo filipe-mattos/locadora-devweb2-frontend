@@ -1,5 +1,5 @@
 <div class="actor-modal-header">
-  <h2 class="actor-title" mat-dialog-title>Gerenciar Diretor</h2>
+  <h2 class="actor-title" mat-dialog-title>Gerenciamento de Item</h2>
 </div>
 
 <!-- Adicionar aqui o formulario para salvar o ator -->
@@ -61,21 +61,21 @@
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="numSerie">
+    <ng-container matColumnDef="serial_number">
       <th mat-header-cell *matHeaderCellDef>Nome</th>
-      <td mat-cell *matCellDef="let element">{{ element.numSerie }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.serial_number }}</td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="aquisicaoDate">
+    <ng-container matColumnDef="acquisition_date">
       <th mat-header-cell *matHeaderCellDef>Nome</th>
-      <td mat-cell *matCellDef="let element">{{ element.aquisicaoDate }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.acquisition_date }}</td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="itemType">
+    <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef>Nome</th>
-      <td mat-cell *matCellDef="let element">{{ element.itemType }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.type }}</td>
     </ng-container>
 
     <!-- Actions Column -->
@@ -105,7 +105,3 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </mat-dialog-content>
-
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Cancel</button>
-</mat-dialog-actions>

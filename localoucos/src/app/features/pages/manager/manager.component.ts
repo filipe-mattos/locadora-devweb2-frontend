@@ -14,6 +14,7 @@ import { Director } from './components/modals/director/director.component';
 import { ClassComponent } from './components/modals/class/class.component';
 import { Item } from './components/modals/item/item.component';
 import { Title } from './components/modals/title/title.component';
+import { CustomerComponent } from './components/modals/customer/customer.component';
 @Component({
   selector: 'app-manager',
   imports: [MatButtonModule],
@@ -23,6 +24,18 @@ import { Title } from './components/modals/title/title.component';
 export class Manager {
 
   readonly dialog = inject(MatDialog);
+
+  openCustomerModal() {
+    const dialogRef = this.dialog.open(CustomerComponent, {
+        data: {
+          ref: this.dialog,
+        },
+        width: '760px',
+        minWidth: '760px',
+        //closePredicate: () => true,
+        //disableClose: true,
+      });
+  }
 
   openItemModal() {
     const dialogRef = this.dialog.open(Item, {

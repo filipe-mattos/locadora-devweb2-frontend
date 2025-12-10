@@ -1,9 +1,8 @@
 <div class="actor-modal-header">
-  <h2 class="actor-title" mat-dialog-title>Gerenciar Classe</h2>
+  <h2 class="actor-title" mat-dialog-title>Gerenciamento de Classe</h2>
 </div>
 
 <!-- Adicionar aqui o formulario para salvar o ator -->
-<mat-dialog-content>
   <div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field class="form-label">
@@ -93,8 +92,3 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-</mat-dialog-content>
-
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Cancel</button>
-</mat-dialog-actions>

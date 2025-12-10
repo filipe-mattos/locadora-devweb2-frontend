@@ -1,6 +1,39 @@
-<app-header></app-header>
-<div class="container">
-  <div class="container-content">
-    <ng-content></ng-content>
-  </div>
-</div>
+
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav #sidenav mode="over" opened="true">
+    <mat-nav-list>
+      <!-- <a mat-list-item routerLink="/" (click)="sidenav.close()">Página Inicial</a> -->
+      <a mat-list-item routerLink="manager/panel/actor" routerLinkActive="active" (click)="sidenav.close()">Ator</a>
+      <a mat-list-item routerLink="manager/panel/director" routerLinkActive="active" (click)="sidenav.close()">Diretor</a>
+      <a mat-list-item routerLink="manager/panel/class" routerLinkActive="active" (click)="sidenav.close()">Classe</a>
+      <a mat-list-item routerLink="manager/panel/item" routerLinkActive="active" (click)="sidenav.close()">Item</a>
+      <a mat-list-item routerLink="manager/panel/titles" routerLinkActive="active" (click)="sidenav.close()">Titulos</a>
+      <a mat-list-item routerLink="manager/panel/customer" routerLinkActive="active" (click)="sidenav.close()">Clientes</a>
+      <a mat-list-item routerLink="manager/panel/location" routerLinkActive="active" (click)="sidenav.close()">Locacao</a>
+    </mat-nav-list>
+    </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <mat-toolbar color="primary">
+      <button
+        mat-icon-button
+
+        (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Locadora Localoucos</span>
+      </mat-toolbar>
+
+    <div class="container">
+      <div  class="container-content">
+        <ng-content></ng-content>
+      </div>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+

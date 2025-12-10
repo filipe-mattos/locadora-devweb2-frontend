@@ -36,6 +36,10 @@ import { EditComponent } from './modals/edit/edit.component';
     FormsModule,
     ReactiveFormsModule,
   ],
+  providers: [
+  { provide: MAT_DIALOG_DATA, useValue: {} },
+  {provide: MatDialogRef, useValue: {Director}}
+],
   templateUrl: './director.component.html',
   styleUrl: './director.component.scss',
 })
