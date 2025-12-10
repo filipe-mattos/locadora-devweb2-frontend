@@ -14,6 +14,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton } from '@angular/material/button';
 import { CustomerService } from './services/cutomer.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EditComponent } from './modals/edit/edit.component';
 
 @Component({
   selector: 'app-customer',
@@ -38,6 +39,7 @@ export class CustomerComponent {
 
   private customerService = inject(CustomerService);
   private snackBar = inject(MatSnackBar);
+  readonly dialog = inject(MatDialog);
   displayedColumns: string[] = ['id', 'name', 'phone', 'address', 'birth_date', 'cpf', 'gender', 'actions'];
   dataSource: CustomerModel[] = [];
 
@@ -97,7 +99,21 @@ export class CustomerComponent {
     });
   }
 
-  openEditCustomerModal(arg0: any) {}
+  openEditCustomerModal(id: string) {
+    console.log(id);
+        const dialogRef = this.dialog.open(EditComponent, {
+          data: {
+            ref: this.dialog,
+            id,
+           // response: this.dataSource
+          },
+          maxWidth: '1000px',
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+          this.listCustomer();
+        });
+  }
 
   listCustomer() {
     this.customerService.listCustomer().subscribe({

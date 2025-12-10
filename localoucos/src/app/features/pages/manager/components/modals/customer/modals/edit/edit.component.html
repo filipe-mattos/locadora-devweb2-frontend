@@ -1,1 +1,71 @@
-<p>edit works!</p>
+<div class="actor-modal-header">
+  <h2 class="actor-title" mat-dialog-title>Gerenciar Ator</h2>
+</div>
+
+<!-- Adicionar aqui o formulario para salvar o ator -->
+<mat-dialog-content>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <mat-form-field class="form-label-name">
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="Nome do Socio" [formControlName]="'name'" required />
+          @if (form.controls.name.hasError('required')) {
+            <mat-error>Campo obrigatório</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="form-label-address">
+          <mat-label>Endereço</mat-label>
+          <input matInput placeholder="Ex.: Rua 1, 123, Centro, Cidade" [formControlName]="'address'" required />
+          @if (form.controls.address.hasError('required')) {
+            <mat-error>Campo obrigatório</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="form-label-telephone">
+          <mat-label>Telefone</mat-label>
+          <input matInput type="tel" placeholder="99999-9999" [formControlName]="'phone'" required />
+          @if (form.controls.phone.hasError('required')) {
+            <mat-error>Campo obrigatório</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="form-label-gender">
+          <mat-label>Sexo</mat-label>
+          <mat-select [formControlName]="'gender'" required>
+              <mat-option value="male">Homem</mat-option>
+              <mat-option value="femele">Mulher</mat-option>
+          </mat-select>
+          @if (form.controls.gender.hasError('required')) {
+            <mat-error>Campo obrigatório</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="form-label">
+          <mat-label>CPF</mat-label>
+          <input matInput placeholder="111.222.333-44" [formControlName]="'cpf'" required />
+          @if (form.controls.cpf.hasError('required')) {
+            <mat-error>Campo obrigatório</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="form-label">
+          <mat-label>Data de Nascimento</mat-label>
+          <input matInput [matDatepicker]="picker" [formControlName]="'birth_date'" required />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          @if (form.controls.birth_date.hasError('required')) {
+            <mat-error>Campo obrigatório</mat-error>
+          }
+        </mat-form-field>
+
+      </div>
+       <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">
+        Cadastrar
+      </button>
+    </form>
+  </div>
+</mat-dialog-content>
