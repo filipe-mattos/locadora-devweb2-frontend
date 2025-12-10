@@ -1,0 +1,15 @@
+.modal-header{
+    background-color: var(--mat-sys-on-surface-variant);
+}
+.modal-title{
+    text-align: center;
+    padding: 20px 0;    
+    color: white;
+    font-weight: bold;
+}
+
+form{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}

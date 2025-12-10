@@ -1,5 +1,5 @@
 export interface ItemModel {
-  id: string | null;
+  id: string;
   serial_number: string;
   acquisition_date: string;
   type: string;

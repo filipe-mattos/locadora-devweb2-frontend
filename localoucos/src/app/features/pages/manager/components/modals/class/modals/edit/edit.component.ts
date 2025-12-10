@@ -48,6 +48,18 @@ export class EditComponent {
     devolution: new FormControl<number>(0, { validators: [Validators.required] }),
   });
 
+  ngOnInit(){
+    this.loadForm();
+  }
+
+  loadForm(){
+    this.actorService.findActorById(this.data.id).subscribe({
+      next: (classe) => {
+         this.form.patchValue(classe)
+      }
+    })
+  }
+
   onSubmit() {
     console.log(this.data);
     const payload: ClassPayload = {

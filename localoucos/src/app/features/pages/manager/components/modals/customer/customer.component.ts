@@ -64,10 +64,10 @@ export class CustomerComponent {
     let splited = str.split('/')
     console.log(splited)
     let reversed = '';
-    //let formated = splited[1]
-    //let formated2 = splited[0]
-    //splited[0] = formated;
-    //splited[1] = formated2
+    let formated = splited[1]
+    let formated2 = splited[0]
+    splited[0] = formated;
+    splited[1] = formated2
     for (let i = splited.length - 1; i >= 0; i--) {
         if(i<1){
           reversed += splited[i];

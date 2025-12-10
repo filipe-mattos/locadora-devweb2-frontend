@@ -68,6 +68,15 @@ export class EditComponent {
 
   ngOnInit(): void {
     this.loadData();
+    this.loadForm();
+  }
+
+  loadForm(){
+    this.titleService.findActorById(this.data.id).subscribe({
+      next: (title) => {
+         this.form.patchValue(title)
+      }
+    })
   }
 
   loadData(){

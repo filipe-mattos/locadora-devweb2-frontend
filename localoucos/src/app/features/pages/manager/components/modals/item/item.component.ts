@@ -67,7 +67,11 @@ export class Item {
   displayedColumns: string[] = ['id', 'serial_number', 'acquisition_date', 'type', 'actions'];
   dataSource: ItemModel[] = [];
 
-
+  
+  ngOnInit() {
+    this.listItems();
+    this.loadTitle();
+  }
 
   form = new FormGroup({
     serial_number: new FormControl<string>('', { validators: [Validators.required] }),
@@ -75,11 +79,6 @@ export class Item {
     type: new FormControl<string>('', { validators: [Validators.required] }),
     title_id: new FormControl<string>('', {validators: [Validators.required]}),
   });
-
-  ngOnInit(): void {
-    this.loadTitle();
-    this.listItems();
-  }
 
   loadTitle(){
     this.titlesService.listActors().subscribe({
@@ -102,10 +101,10 @@ export class Item {
     let splited = str.split('/')
     console.log(splited)
     let reversed = '';
-    //let formated = splited[1]
-    //let formated2 = splited[0]
-    //splited[0] = formated;
-    //splited[1] = formated2
+    let formated = splited[1]
+    let formated2 = splited[0]
+    splited[0] = formated;
+    splited[1] = formated2
     for (let i = splited.length - 1; i >= 0; i--) {
         if(i<1){
           reversed += splited[i];
@@ -179,7 +178,7 @@ export class Item {
         ref: this.dialog,
         id,
       },
-      width: '700px',
+      maxWidth: '700px',
     });
 
     dialogRef.afterClosed().subscribe(() => {

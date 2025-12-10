@@ -41,10 +41,6 @@ providers: [provideNativeDateAdapter()],
 })
 export class EditComponent {
 
-  ngOnInit() {
-    this.loadTitle();
-  }
-
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -60,7 +56,7 @@ export class EditComponent {
 
   form = new FormGroup({
     serial_number: new FormControl<string>('', { validators: [Validators.required] }),
-    acquisition_date: new FormControl<Date>(new Date(), { validators: [Validators.required] }),
+    acquisition_date: new FormControl<string>('', { validators: [Validators.required] }),
     type: new FormControl<string>('', { validators: [Validators.required] }),
     title_id: new FormControl<string>('', {validators: [Validators.required]}),
   });
@@ -69,10 +65,10 @@ export class EditComponent {
     let splited = str.split('/')
     console.log(splited)
     let reversed = '';
-    //let formated = splited[1]
-    //let formated2 = splited[0]
-    //splited[0] = formated;
-    //splited[1] = formated2
+    let formated = splited[1]
+    let formated2 = splited[0]
+    splited[0] = formated;
+    splited[1] = formated2
     for (let i = splited.length - 1; i >= 0; i--) {
         if(i<1){
           reversed += splited[i];
@@ -89,6 +85,19 @@ export class EditComponent {
       next: (titles) => {
         this.titles = titles
       },
+    })
+  }
+
+  ngOnInit(){
+    this.loadForm();
+    this.loadTitle();
+  }
+
+  loadForm(){
+    this.itemService.findActorById(this.data.id).subscribe({
+      next: (item) => {
+         this.form.patchValue(item)
+      }
     })
   }
 

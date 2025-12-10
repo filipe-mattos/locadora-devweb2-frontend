@@ -5,10 +5,11 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { CustomerService } from '../../services/cutomer.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CustomerPayload } from '../../models/customer-model';
+import CustomerModel, { CustomerPayload } from '../../models/customer-model';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MY_FORMATS } from '../../../../../../../../shared/date-format';
 
 @Component({
   selector: 'app-edit',
@@ -16,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss',
   providers: [provideNativeDateAdapter()]
+ //providers: [provideNativeDateAdapter(MY_FORMATS)]
 })
 export class EditComponent {
 
@@ -39,14 +41,27 @@ export class EditComponent {
     gender: new FormControl<string>('', { validators: [Validators.required] }),
   });
 
+
+  ngOnInit(){
+    this.loadForm();
+  }
+
+  loadForm(){
+    this.customerService.findCustomerById(this.data.id).subscribe({
+      next: (customer) => {
+         this.form.patchValue(customer)
+      }
+    })
+  }
+
    reverseStringUsingLoop(str: string): string {
     let splited = str.split('/')
     console.log(splited)
     let reversed = '';
-    //let formated = splited[1]
-    //let formated2 = splited[0]
-    //splited[0] = formated;
-    //splited[1] = formated2
+    let formated = splited[1]
+    let formated2 = splited[0]
+    splited[0] = formated;
+    splited[1] = formated2
     for (let i = splited.length - 1; i >= 0; i--) {
         if(i<1){
           reversed += splited[i];
