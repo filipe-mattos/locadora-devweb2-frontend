@@ -9,13 +9,43 @@
 form {
   padding: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: space-between;
   gap : 20px;
 
   .form-label{
-    width: 80%;
+    width: 100%;
+  }
+
+  .form-label-name{
+    width: 600px;
+  }
+
+  .form-label-address{
+    width: 700px;
+  }
+
+  .form-label-telephone{
+    width: 200px;
+  }
+
+  .form-label-gender{
+    width: 400px;
+  }
+
+  button{
+  width: 150px;
+  height: 50px;
+  align-self: flex-end;
   }
 
 }
 
+.row{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}

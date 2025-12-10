@@ -32,7 +32,6 @@ import { TitleService } from '../title/service/title.service';
   selector: 'app-actor',
   imports: [
     MatDialogContent,
-    MatDialogActions,
     MatTableModule,
     MatIconModule,
     MatButton,
@@ -180,7 +179,7 @@ export class Item {
         ref: this.dialog,
         id,
       },
-      width: '200px',
+      width: '700px',
     });
 
     dialogRef.afterClosed().subscribe(() => {

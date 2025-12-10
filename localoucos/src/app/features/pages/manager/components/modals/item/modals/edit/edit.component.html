@@ -15,8 +15,8 @@
       </mat-form-field>
 
       <mat-form-field class="form-label">
-        <mat-label>Atores</mat-label>
-        <mat-select [formControlName]="'titleId'" required>
+        <mat-label>Titulo</mat-label>
+        <mat-select [formControlName]="'title_id'" required>
           @for(title of titles; track title){
             <mat-option value="{{title.id}}">{{title.name}}</mat-option>
           }
@@ -44,8 +44,6 @@
           <mat-error>Campo obrigatório</mat-error>
         }
       </mat-form-field>
-
-
       <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">
         Cadastrar
       </button>

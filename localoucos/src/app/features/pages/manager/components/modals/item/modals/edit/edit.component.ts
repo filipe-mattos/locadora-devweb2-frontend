@@ -21,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from "@angular/material/select";
 import { TitleModel } from '../../../title/models/title';
 import { TitleService } from '../../../title/service/title.service';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-edit',
@@ -34,10 +35,16 @@ import { TitleService } from '../../../title/service/title.service';
     ReactiveFormsModule,
     MatSelectModule
 ],
+providers: [provideNativeDateAdapter()],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss',
 })
 export class EditComponent {
+
+  ngOnInit() {
+    this.loadTitle();
+  }
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -58,6 +65,24 @@ export class EditComponent {
     title_id: new FormControl<string>('', {validators: [Validators.required]}),
   });
 
+  reverseStringUsingLoop(str: string): string {
+    let splited = str.split('/')
+    console.log(splited)
+    let reversed = '';
+    //let formated = splited[1]
+    //let formated2 = splited[0]
+    //splited[0] = formated;
+    //splited[1] = formated2
+    for (let i = splited.length - 1; i >= 0; i--) {
+        if(i<1){
+          reversed += splited[i];
+        }else{
+          reversed += splited[i]+'-';
+        }
+    }
+    console.log(reversed)
+    return reversed;
+  }
 
   loadTitle(){
     this.titlesService.listActors().subscribe({
@@ -67,16 +92,8 @@ export class EditComponent {
     })
   }
 
-  reverseStringUsingLoop(str: string): string {
-    let reversed = '';
-    for (let i = str.length - 1; i >= 0; i--) {
-        reversed += str[i];
-    }
-    return reversed;
-  }
-
   onSubmit() {
-    
+
     const date = new Date(this.form.controls.acquisition_date.value!).toLocaleDateString();
     console.log(date)
     console.log(this.data);

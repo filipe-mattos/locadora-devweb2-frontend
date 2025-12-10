@@ -36,7 +36,6 @@ import { DirectorService } from '../director/service/director.service';
   selector: 'app-actor',
   imports: [
     MatDialogContent,
-    MatDialogActions,
     MatTableModule,
     MatIconModule,
     MatSelectModule,
@@ -179,7 +178,7 @@ export class Title {
         ref: this.dialog,
         id,
       },
-      width: '200px',
+       maxWidth: '1000px',
     });
 
     dialogRef.afterClosed().subscribe(() => {
