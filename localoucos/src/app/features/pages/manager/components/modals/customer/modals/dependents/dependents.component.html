@@ -9,29 +9,12 @@
       <div class="row">
         <mat-form-field class="form-label-name">
           <mat-label>Nome</mat-label>
-          <input matInput placeholder="Nome do Socio" [formControlName]="'name'" required />
+          <input matInput placeholder="Nome do Dependente" [formControlName]="'name'" required />
           @if (form.controls.name.hasError('required')) {
             <mat-error>Campo obrigatório</mat-error>
           }
         </mat-form-field>
 
-        <mat-form-field class="form-label-address">
-          <mat-label>Endereço</mat-label>
-          <input matInput placeholder="Ex.: Rua 1, 123, Centro, Cidade" [formControlName]="'address'" required />
-          @if (form.controls.address.hasError('required')) {
-            <mat-error>Campo obrigatório</mat-error>
-          }
-        </mat-form-field>
-
-        <mat-form-field class="form-label-telephone">
-          <mat-label>Telefone</mat-label>
-          <input matInput type="tel" placeholder="99999-9999" [formControlName]="'phone'" required />
-          @if (form.controls.phone.hasError('required')) {
-            <mat-error>Campo obrigatório</mat-error>
-          }
-        </mat-form-field>
-      </div>
-      <div class="row">
         <mat-form-field class="form-label-gender">
           <mat-label>Sexo</mat-label>
           <mat-select [formControlName]="'gender'" required>
@@ -39,14 +22,6 @@
               <mat-option value="Feminino">Feminino</mat-option>
           </mat-select>
           @if (form.controls.gender.hasError('required')) {
-            <mat-error>Campo obrigatório</mat-error>
-          }
-        </mat-form-field>
-
-        <mat-form-field class="form-label">
-          <mat-label>CPF</mat-label>
-          <input matInput placeholder="111.222.333-44" [formControlName]="'cpf'" required />
-          @if (form.controls.cpf.hasError('required')) {
             <mat-error>Campo obrigatório</mat-error>
           }
         </mat-form-field>
@@ -87,28 +62,9 @@
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="address">
-      <th mat-header-cell *matHeaderCellDef>Endereço</th>
-      <td mat-cell *matCellDef="let element">{{ element.address }}</td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef>Telefone</th>
-      <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
-    </ng-container>
-
-
-    <!-- Name Column -->
     <ng-container matColumnDef="gender">
       <th mat-header-cell *matHeaderCellDef>Sexo</th>
       <td mat-cell *matCellDef="let element">{{ element.gender }}</td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="cpf">
-      <th mat-header-cell *matHeaderCellDef>CPF</th>
-      <td mat-cell *matCellDef="let element">{{ element.cpf }}</td>
     </ng-container>
 
     <!-- Name Column -->
@@ -121,14 +77,6 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Ações</th>
       <td mat-cell *matCellDef="let data">
-        <button>
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Example home icon"
-            fontIcon="person"
-            (click)="openDependentsModal(data.id)"
-          ></mat-icon>
-        </button>
         <button>
           <mat-icon
             aria-hidden="false"

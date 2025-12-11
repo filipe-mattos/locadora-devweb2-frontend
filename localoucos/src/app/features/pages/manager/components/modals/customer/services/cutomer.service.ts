@@ -1,6 +1,7 @@
 import { inject, Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import CustomerModel, { CustomerPayload } from '../models/customer-model';
+import { DependentsModel, DependentsPayload } from '../modals/dependents/models/dependents-model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,5 +27,21 @@ export class CustomerService {
 
   saveCustomer(payload: CustomerPayload) {
     return this.httpClient.post<CustomerModel>('http://localhost:8000/clients/members', payload);
+  }
+
+  listDependents(id: string) {
+    return this.httpClient.get<DependentsModel[]>('http://localhost:8000/clients/members/' + id + '/dependents');
+  }
+
+  deleteDependents(id: string) {
+    return this.httpClient.delete('http://localhost:8000/clients/' + id);
+  }
+
+  updateDependents(id: string, payload: CustomerPayload) {
+    return this.httpClient.put<CustomerModel>('http://localhost:8000/clients/' + id, payload);
+  }
+
+  saveDependents(id: string, payload: DependentsPayload) {
+    return this.httpClient.post<DependentsModel>('http://localhost:8000/clients/members/' + id + '/dependents', payload);
   }
 }

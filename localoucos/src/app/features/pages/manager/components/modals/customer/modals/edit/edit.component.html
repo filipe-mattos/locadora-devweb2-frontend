@@ -35,8 +35,8 @@
         <mat-form-field class="form-label-gender">
           <mat-label>Sexo</mat-label>
           <mat-select [formControlName]="'gender'" required>
-              <mat-option value="male">Homem</mat-option>
-              <mat-option value="femele">Mulher</mat-option>
+              <mat-option value="Masculino">Masculino</mat-option>
+              <mat-option value="Feminino">Feminino</mat-option>
           </mat-select>
           @if (form.controls.gender.hasError('required')) {
             <mat-error>Campo obrigatório</mat-error>

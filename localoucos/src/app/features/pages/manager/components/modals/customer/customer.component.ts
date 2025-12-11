@@ -15,6 +15,7 @@ import { MatButton } from '@angular/material/button';
 import { CustomerService } from './services/cutomer.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditComponent } from './modals/edit/edit.component';
+import { DependentsComponent } from './modals/dependents/dependents.component';
 
 @Component({
   selector: 'app-customer',
@@ -79,7 +80,20 @@ export class CustomerComponent {
     return reversed;
   }
 
-  openDependentsModal(arg0: any) {}
+  openDependentsModal(id: string) {
+    const dialogRef = this.dialog.open(DependentsComponent, {
+      data: {
+        ref: this.dialog,
+        id,
+        // response: this.dataSource
+      },
+      maxWidth: '1000px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.listCustomer();
+    });
+  }
 
   deleteCustomer(id: string) {
     this.customerService.deleteCustomer(id).subscribe({
