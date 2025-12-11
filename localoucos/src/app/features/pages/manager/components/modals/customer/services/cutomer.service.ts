@@ -44,4 +44,12 @@ export class CustomerService {
   saveDependents(id: string, payload: DependentsPayload) {
     return this.httpClient.post<DependentsModel>('http://localhost:8000/clients/members/' + id + '/dependents', payload);
   }
+
+  desactiveCustomer(id: string) {
+    return this.httpClient.post('http://localhost:8000/clients/' + id + '/deactivate', '');
+  }
+
+  reactiveCustomer(id: string) {
+    return this.httpClient.post('http://localhost:8000/clients/' + id + '/reactivate', '');
+  }
 }

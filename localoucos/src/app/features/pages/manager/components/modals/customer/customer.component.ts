@@ -30,6 +30,25 @@ import { DependentsComponent } from './modals/dependents/dependents.component';
 })
 export class CustomerComponent {
 
+  deasctivateCustomerStatus(id: string) {
+    this.customerService.desactiveCustomer(id).subscribe({
+      next: () => {
+        this.openSnackBar('Cliente desativado com sucesso', 'Fechar');
+        this.listCustomer();
+      }
+    });
+  }
+
+
+  reactivateCustomerStatus(id: string) {
+     this.customerService.reactiveCustomer(id).subscribe({
+      next: () => {
+        this.openSnackBar('Cliente reativado com sucesso', 'Fechar');
+        this.listCustomer();
+      }
+    });
+  }
+
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -41,7 +60,7 @@ export class CustomerComponent {
   private customerService = inject(CustomerService);
   private snackBar = inject(MatSnackBar);
   readonly dialog = inject(MatDialog);
-  displayedColumns: string[] = ['id', 'name', 'phone', 'address', 'birth_date', 'cpf', 'gender', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'phone', 'address', 'birth_date', 'cpf', 'gender', 'status', 'actions'];
   dataSource: CustomerModel[] = [];
 
   form = new FormGroup({
