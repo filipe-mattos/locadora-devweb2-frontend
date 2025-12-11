@@ -183,7 +183,7 @@ export class CustomerComponent {
     this.customerService.saveCustomer(payload).subscribe({
 
       next: () => {
-        this.snackBar.open('Item cadastrado com sucesso', 'Fechar', {
+        this.snackBar.open('Socio cadastrado com sucesso', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });

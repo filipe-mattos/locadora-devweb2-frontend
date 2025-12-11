@@ -133,7 +133,7 @@ export class Title {
 
     this.titleService.saveActor(payload).subscribe({
       next: () => {
-        this.snackBar.open('Ator cadastrado com sucesso', 'Fechar', {
+        this.snackBar.open('Titulo cadastrado com sucesso', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });
@@ -151,7 +151,7 @@ export class Title {
         this.dataSource = titles;
       },
       error: () => {
-        this.snackBar.open('Adicione um Ator', 'Fechar', {
+        this.snackBar.open('Adicione um Titulo', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });
@@ -162,7 +162,7 @@ export class Title {
   deleteActor(id: string) {
     this.titleService.deleteActor(id).subscribe({
       next: () => {
-        this.snackBar.open('Ator deletado com sucesso', 'Fechar', {
+        this.snackBar.open('Titulo deletado com sucesso', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });

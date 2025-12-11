@@ -91,7 +91,7 @@ export class ClassComponent {
 
     this.classService.saveActor(payload).subscribe({
       next: () => {
-        this.snackBar.open('Ator cadastrado com sucesso', 'Fechar', {
+        this.snackBar.open('Classe cadastrada com sucesso', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });
@@ -109,7 +109,7 @@ export class ClassComponent {
         this.dataSource = classes;
       },
       error: () => {
-        this.snackBar.open('Adicione um Ator', 'Fechar', {
+        this.snackBar.open('Adicione uma Classe', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });
@@ -121,7 +121,7 @@ export class ClassComponent {
     console.log(id);
     this.classService.deleteActor(id).subscribe({
       next: () => {
-        this.snackBar.open('Ator deletado com sucesso', 'Fechar', {
+        this.snackBar.open('Classe deletada com sucesso', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });

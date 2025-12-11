@@ -84,7 +84,7 @@ export class Director {
 
     this.directorService.saveActor(payload).subscribe({
       next: () => {
-        this.snackBar.open('Ator cadastrado com sucesso', 'Fechar', {
+        this.snackBar.open('Diretor cadastrado com sucesso', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });
@@ -102,7 +102,7 @@ export class Director {
         this.dataSource = directors;
       },
       error: () => {
-        this.snackBar.open('Adicione um Ator', 'Fechar', {
+        this.snackBar.open('Adicione um Diretor', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });
@@ -113,7 +113,7 @@ export class Director {
   deleteActor(id: string) {
     this.directorService.deleteActor(id).subscribe({
       next: () => {
-        this.snackBar.open('Ator deletado com sucesso', 'Fechar', {
+        this.snackBar.open('Diretor deletado com sucesso', 'Fechar', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });
