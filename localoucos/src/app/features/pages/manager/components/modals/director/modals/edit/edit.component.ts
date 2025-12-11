@@ -47,6 +47,18 @@ export class EditComponent {
     name: new FormControl<string>('', { validators: [Validators.required] }),
   });
 
+  ngOnInit(){
+    this.loadForm();
+  }
+
+  loadForm(){
+    this.directorService.findActorById(this.data.id).subscribe({
+      next: (director) => {
+         this.form.patchValue(director)
+      }
+    })
+  }
+
   onSubmit() {
     console.log(this.data);
     const payload: DirectorPayload = {

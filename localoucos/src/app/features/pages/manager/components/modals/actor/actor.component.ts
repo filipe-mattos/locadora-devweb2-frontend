@@ -138,7 +138,7 @@ export class Actor implements OnInit {
         ref: this.dialog,
         id,
       },
-      width: '200px',
+      width: '700px',
     });
 
     dialogRef.afterClosed().subscribe(() => {

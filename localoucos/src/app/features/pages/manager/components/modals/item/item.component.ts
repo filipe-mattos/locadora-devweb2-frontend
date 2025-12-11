@@ -67,7 +67,7 @@ export class Item {
   displayedColumns: string[] = ['id', 'serial_number', 'acquisition_date', 'type', 'actions'];
   dataSource: ItemModel[] = [];
 
-  
+
   ngOnInit() {
     this.listItems();
     this.loadTitle();
@@ -178,7 +178,7 @@ export class Item {
         ref: this.dialog,
         id,
       },
-      maxWidth: '700px',
+      width: '700px',
     });
 
     dialogRef.afterClosed().subscribe(() => {

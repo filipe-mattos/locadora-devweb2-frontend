@@ -138,7 +138,7 @@ export class ClassComponent {
         id,
        // response: this.dataSource
       },
-      width: '200px',
+      width: '700px',
     });
 
     dialogRef.afterClosed().subscribe(() => {
